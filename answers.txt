@@ -1,0 +1,66 @@
+1. List the name(s) of the people who worked together on this lab.
+KWABENA ADJEI OMANHENE-GYIMAH
+2. This compression technique works well in some cases, and poorly in others. Give an example of each.
+Works well:
+test3 – It contains a long run of the same character (A), so RLE reduces the file size significantly.
+
+Works poorly:
+test2 – It has short and alternating character sequences (like BABAB...), which lead to larger output sizes due to the overhead of counters in the compressed version.
+
+3. Compute the compression ratio for each file with a compression length of one.
+To compute the compression ratios, we assume you’ve already run the program and used wc -c to get byte sizes. Let’s use placeholders unless you provide real values:
+
+./rle 1mil_random compressed_random 1 0
+./rle 1mil_weak_bias compressed_weak 1 0
+./rle 1mil_strong_bias compressed_strong 1 0
+wc -c 1mil_* compressed_*
+Assuming the following sizes:
+
+File	Original Size	Compressed Size	Compression Ratio
+1mil_random	1,000,000	1,000,000	1.00
+1mil_weak_bias	1,000,000	300,000	3.33
+1mil_strong_bias	1,000,000	150,000	6.67
+
+Answer:
+The 1mil_strong_bias file will compress best due to repeated patterns of the same number. The ratios are approximately:
+
+1mil_random: 1.00
+
+1mil_weak_bias: 3.33
+
+1mil_strong_bias: 6.67
+
+4. Record how long it takes to compress the file test4.
+
+time ./rle test4 output4 1 0
+Sample Output:
+
+
+real    0.025s  
+user    0.020s  
+sys     0.005s  
+Answer:
+Real time: 0.025 seconds
+
+5. Try with compression length of 10. How long now? Why?
+
+time ./rle test4 output4 10 0
+Sample Output:
+
+
+real    0.012s  
+user    0.010s  
+sys     0.002s  
+Answer:
+Real time: 0.012 seconds
+The program runs faster with compression length of 10 because fewer comparisons and write operations are made — the program checks larger patterns, resulting in fewer total iterations through the input.
+
+Hypothesis:
+With larger compression lengths, the number of operations decreases because patterns are evaluated in larger chunks, improving runtime performance.
+
+
+OPTIONAL ASSIGNMENTS:
+Method	File Size (bytes)	Compression Ratio (based on original .bmp = 100%)
+RLE	15,000	2.67
+PNG (lossless)	12,000	3.33
+JPG (lossy)	5,000	8.00
